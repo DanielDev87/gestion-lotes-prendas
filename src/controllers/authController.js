@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const User = require('../models/User'); // Importa el modelo de usuarios
+const User = require('../models/User');
 const { validationResult } = require('express-validator');
 
 // Registro
@@ -11,20 +11,20 @@ exports.register = async (req, res) => {
     }
 
     try {
-        const { username, password, role } = req.body;
+        const { name, email, password, role } = req.body;
 
-        // Verificar si el usuario ya existe
-        const existingUser = await User.findOne({ where: { username } });
+        // Verificar si el correo ya existe
+        const existingUser = await User.findOne({ where: { email } });
         if (existingUser) {
-            return res.status(400).json({ error: 'El nombre de usuario ya está en uso' });
+            return res.status(400).json({ error: 'El correo ya está en uso' });
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await User.create({ username, password: hashedPassword, role });
+        const user = await User.create({ name, email, password: hashedPassword, role });
 
         res.status(201).json({
             message: 'Usuario registrado exitosamente',
-            user: { id: user.id, username: user.username, role: user.role },
+            user: { id: user.id, name: user.name, email: user.email, role: user.role },
         });
     } catch (error) {
         res.status(500).json({ error: 'Error al registrar usuario', details: error.message });
@@ -39,10 +39,10 @@ exports.login = async (req, res) => {
     }
 
     try {
-        const { username, password } = req.body;
+        const { email, password } = req.body;
 
         // Verificar si el usuario existe
-        const user = await User.findOne({ where: { username } });
+        const user = await User.findOne({ where: { email } });
         if (!user) {
             return res.status(401).json({ error: 'Credenciales incorrectas' });
         }
@@ -55,7 +55,7 @@ exports.login = async (req, res) => {
 
         // Generar token
         const token = jwt.sign(
-            { id: user.id, username: user.username, role: user.role },
+            { id: user.id, name: user.name, email: user.email, role: user.role },
             process.env.JWT_SECRET,
             { expiresIn: '1d' }
         );
@@ -63,7 +63,7 @@ exports.login = async (req, res) => {
         res.status(200).json({
             message: 'Inicio de sesión exitoso',
             token,
-            user: { id: user.id, username: user.username, role: user.role },
+            user: { id: user.id, name: user.name, email: user.email, role: user.role },
         });
     } catch (error) {
         res.status(500).json({ error: 'Error al iniciar sesión', details: error.message });
