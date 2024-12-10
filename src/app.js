@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 const cors = require('cors');
 
 const app = express();
@@ -17,5 +18,9 @@ const batchRoutes = require('./routes/batchRoutes');
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/batches', batchRoutes);
+
+//Servir archivos estaticos
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 module.exports = app;

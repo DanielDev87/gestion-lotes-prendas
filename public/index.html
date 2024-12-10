@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi App Monolítica</title>
+    <!-- Incluir Bootstrap desde el CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./assets/styles.css"> <!-- Estilos adicionales -->
+</head>
+<body>
+    <!-- Aquí irán las vistas -->
+    <div class="container mt-5">
+        <h1 class="text-center">Bienvenido al Dashboard</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Usuarios</h5>
+                        <p class="card-text">Ver y gestionar los usuarios registrados.</p>
+                        <a href="/users" class="btn btn-primary">Ir a Usuarios</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Lotes</h5>
+                        <p class="card-text">Gestionar lotes de producción.</p>
+                        <a href="/batches" class="btn btn-primary">Ir a Lotes</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Nómina</h5>
+                        <p class="card-text">Gestionar pagos a los trabajadores.</p>
+                        <a href="/payroll" class="btn btn-primary">Ir a Nómina</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Incluir JS de Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./assets/scripts.js"></script> <!-- Scripts adicionales -->
+</body>
+</html>
